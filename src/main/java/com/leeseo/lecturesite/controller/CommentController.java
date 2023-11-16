@@ -27,7 +27,7 @@ public class CommentController {
 		@RequestBody CommentRequestDto req,
 		@AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
-			commentService.create(lectureId, req, userDetails.getUser());
+			commentService.createReply(lectureId, req, userDetails.getUser());
 			return new ResponseEntity<>("댓글 등록 성공", HttpStatus.OK);
 		} finally {
 
@@ -61,17 +61,18 @@ public class CommentController {
 		}
 	}
 
-	@PostMapping("/lectures/{lectureId}/comment/{commentId}/comment")
+	@PostMapping("/lectures/{lectureId}/comment/{commentId}/reply")
 	public ResponseEntity<String> createReply(
 		@PathVariable Long lectureId,
 		@PathVariable Long commentId,
 		@RequestBody CommentRequestDto req,
 		@AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
-			commentService.create(lectureId, commentId, req, userDetails.getUser());
+			commentService.createReply(lectureId, commentId, req, userDetails.getUser());
 			return new ResponseEntity<>("대댓글 수정 성공", HttpStatus.OK);
 		} finally {
 
 		}
 	}
+
 }

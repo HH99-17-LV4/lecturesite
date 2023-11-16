@@ -71,3 +71,5 @@ $ git rebase main
 $ git checkout main
 $ git merge my-branch
 ```
+
+# 6. 현재 feat/{featuer명} 에서 작업중이고, dev가 변경되었다면, feat 브랜치에서 pull dev 하고나서 진행해도 된다.

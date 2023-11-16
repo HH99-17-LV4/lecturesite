@@ -16,11 +16,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommentService {
 	private final CommentRepository commentRepository;
-	public void create(Long lectureId, CommentRequestDto req, User user) {
+	public void createReply(Long lectureId, CommentRequestDto req, User user) {
 		Comment comment = new Comment(lectureId, req, user);
 		commentRepository.save(comment);
 	}
-	public void create(Long lectureId, Long commentId, CommentRequestDto req, User user) {
+	public void createReply(Long lectureId, Long commentId, CommentRequestDto req, User user) {
+		// TODO: 2023-11-16 대댓글 로직 추가
 		Comment comment = new Comment(lectureId, req, user);
 		commentRepository.save(comment);
 	}
@@ -34,6 +35,7 @@ public class CommentService {
 		}
 		comment.update(req);
 	}
+
 
 	public void delete(Long lectureId, Long commentId, User user) {
 		Comment comment = commentRepository.findById(commentId).orElseThrow(()-> new RuntimeException("해당 댓글이 존재하지 않습니다."));

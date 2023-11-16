@@ -36,21 +36,17 @@ public class LectureService {
 	}
 
 	public String createLecture(LectureRequestDto requestDto) {
-		Lecture lecture = new Lecture();
 		Tutor tutor = findById(requestDto.getTutorId());
-		lecture.setName(requestDto.getName());
-		lecture.setPrice(requestDto.getPrice());
-		lecture.setComment(requestDto.getComment());
-		lecture.setCategory(requestDto.getCategory());
-		lecture.setTutor(tutor);
+		Lecture lecture = new Lecture(requestDto, tutor);
 
 		lectureRepository.save(lecture);
 
 		return "강의가 등록되었습니다.";
 	}
 
-	public List<Lecture> getAllLectures() {
-		return lectureRepository.findAll();
+	//Lecture 를 반환하면 순환 참조가 발생합니다.
+	public List<LectureResponseDto> getAllLectures() {
+		return lectureRepository.findAll().stream().map(LectureResponseDto::new).collect(Collectors.toList());
 	}
 
 	public LectureResponseDto getLectureById(Long id) {
@@ -78,8 +74,6 @@ public class LectureService {
 	private Tutor findById(Long tutorId) {
 		return tutorRepository.findByid(tutorId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 강사입니다."));
 	}
-
-
 
 	public boolean likes(Long id, User user) {
 		Lecture foundLecture = lectureRepository.findById(id)
