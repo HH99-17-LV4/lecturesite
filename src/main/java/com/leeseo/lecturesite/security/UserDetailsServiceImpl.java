@@ -16,12 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Not Found " + username));
-        log.info("user.getUsername() : " + user.getUsername());
-        return new UserDetailsImpl(user);
-    }
+	private final UserRepository userRepository;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepository.findByUsername(username)
+			.orElseThrow(() -> new UsernameNotFoundException("Not Found " + username));
+		log.info("user.getUsername() : " + user.getUsername());
+		return new UserDetailsImpl(user);
+	}
 }

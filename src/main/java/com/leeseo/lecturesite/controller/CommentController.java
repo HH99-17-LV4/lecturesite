@@ -22,9 +22,7 @@ public class CommentController {
 	private final CommentService commentService;
 
 	@PostMapping("/lectures/{lectureId}/comment")
-	public ResponseEntity<String> create(
-		@PathVariable Long lectureId,
-		@RequestBody CommentRequestDto req,
+	public ResponseEntity<String> create(@PathVariable Long lectureId, @RequestBody CommentRequestDto req,
 		@AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
 			commentService.createReply(lectureId, req, userDetails.getUser());
@@ -35,11 +33,8 @@ public class CommentController {
 	}
 
 	@PostMapping("/lectures/{lectureId}/comment/{commentId}")
-	public ResponseEntity<String> modify(
-		@PathVariable Long lectureId,
-		@PathVariable Long commentId,
-		@RequestBody CommentRequestDto req,
-		@AuthenticationPrincipal UserDetailsImpl userDetails) {
+	public ResponseEntity<String> modify(@PathVariable Long lectureId, @PathVariable Long commentId,
+		@RequestBody CommentRequestDto req, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
 			commentService.modify(lectureId, commentId, req, userDetails.getUser());
 			return new ResponseEntity<>("댓글 수정 성공", HttpStatus.OK);
@@ -49,9 +44,7 @@ public class CommentController {
 	}
 
 	@DeleteMapping("/lectures/{lectureId}/comment/{commentId}")
-	public ResponseEntity<String> delete(
-		@PathVariable Long lectureId,
-		@PathVariable Long commentId,
+	public ResponseEntity<String> delete(@PathVariable Long lectureId, @PathVariable Long commentId,
 		@AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
 			commentService.delete(lectureId, commentId, userDetails.getUser());
@@ -62,11 +55,8 @@ public class CommentController {
 	}
 
 	@PostMapping("/lectures/{lectureId}/comment/{commentId}/reply")
-	public ResponseEntity<String> createReply(
-		@PathVariable Long lectureId,
-		@PathVariable Long commentId,
-		@RequestBody CommentRequestDto req,
-		@AuthenticationPrincipal UserDetailsImpl userDetails) {
+	public ResponseEntity<String> createReply(@PathVariable Long lectureId, @PathVariable Long commentId,
+		@RequestBody CommentRequestDto req, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
 			commentService.createReply(lectureId, commentId, req, userDetails.getUser());
 			return new ResponseEntity<>("대댓글 생성 성공", HttpStatus.OK);

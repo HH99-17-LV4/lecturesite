@@ -18,7 +18,7 @@ public class CommentResponseDto {
 	private Long parentId;
 	private List<CommentResponseDto> children = new ArrayList<>();
 
-	public CommentResponseDto(Comment comment){
+	public CommentResponseDto(Comment comment) {
 		this.id = comment.getId();
 		this.content = comment.getContent();
 		this.registeredAt = comment.getRegisteredAt();

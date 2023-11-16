@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Comment extends TimeStamped{
+public class Comment extends TimeStamped {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -49,8 +49,6 @@ public class Comment extends TimeStamped{
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent", orphanRemoval = true)
 	private List<Comment> children = new ArrayList<>();
-
-
 
 	public Comment(Lecture lecture, CommentRequestDto req, User user) {
 		this.content = req.getContent();

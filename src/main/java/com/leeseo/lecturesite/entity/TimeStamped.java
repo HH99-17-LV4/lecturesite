@@ -1,19 +1,24 @@
 package com.leeseo.lecturesite.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import lombok.Getter;
 
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class TimeStamped {
 
-    @CreatedDate
-    @Column(updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime registeredAt;
+	@CreatedDate
+	@Column(updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime registeredAt;
 }

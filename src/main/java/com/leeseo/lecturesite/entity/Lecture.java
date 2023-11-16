@@ -3,12 +3,9 @@ package com.leeseo.lecturesite.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import com.leeseo.lecturesite.dto.LectureRequestDto;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,7 +13,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

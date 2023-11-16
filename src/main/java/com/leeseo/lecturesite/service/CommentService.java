@@ -33,7 +33,6 @@ public class CommentService {
 	}
 
 	public void createReply(Long lectureId, Long commentId, CommentRequestDto req, User user) {
-		// TODO: 2023-11-16 대댓글 로직 추가
 		Comment foundComment = commentRepository.findById(commentId)
 			.orElseThrow(() -> new RuntimeException("해당 댓글이 존재하지 않습니다."));
 		Lecture foundLecture = lectureRepository.findById(lectureId)
@@ -77,8 +76,7 @@ public class CommentService {
 		findCommentList.stream().map(CommentResponseDto::new).forEach(child -> {
 			commentMap.put(child.getId(), child);
 			if (child.getParentId() > 0) { // 부모가 있는 댓글일 경우
-				commentMap.get(child.getParentId())
-					.getChildren().add(child);
+				commentMap.get(child.getParentId()).getChildren().add(child);
 			} else { // 부모가 없는 댓글일 경우
 				result.add(child);
 			}

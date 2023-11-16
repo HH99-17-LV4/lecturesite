@@ -28,11 +28,8 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
 		if (request.getQueryString() != null) { // querystring이 존재하는 경우에만 받아오고 아니면 공백
 			queryString = request.getQueryString();
 		}
-		log.info("Request : {} uri : {} content-type : {}",
-			request.getMethod(),
-			request.getRequestURI() + queryString,
-			request.getContentType()
-		);
+		log.info("Request : {} uri : {} content-type : {}", request.getMethod(), request.getRequestURI() + queryString,
+			request.getContentType());
 		logPayload("Request", request.getContentType(), request.getInputStream());
 	}
 
@@ -54,14 +51,14 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
 	}
 
 	private static boolean isVisible(MediaType mediaType) {
-		final List<MediaType> VISIBLE_TYPES = Arrays.asList(
-			MediaType.APPLICATION_FORM_URLENCODED, // form type
+		final List<MediaType> VISIBLE_TYPES = Arrays.asList(MediaType.APPLICATION_FORM_URLENCODED, // form type
 			MediaType.APPLICATION_JSON, // json
 			MediaType.APPLICATION_XML, // xml
-			MediaType.TEXT_PLAIN // text/plain
+			MediaType.TEXT_PLAIN, // text/plain
+			MediaType.TEXT_HTML // text/html
 		);
 
-		return VISIBLE_TYPES.stream().anyMatch((visibleType)->visibleType.includes(mediaType));
+		return VISIBLE_TYPES.stream().anyMatch((visibleType) -> visibleType.includes(mediaType));
 	}
 
 	@Override
@@ -79,12 +76,11 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
 	}
 
 	protected void doFilterWrapped(RequestLoggingWrapper request, ContentCachingResponseWrapper response,
-		FilterChain filterChain) throws
-		IOException, ServletException {
+		FilterChain filterChain) throws IOException, ServletException {
 		try {
 			logRequest(request);
 			filterChain.doFilter(request, response);
-		} finally { // 얘가 캐치하면 안된다.
+		} finally { // 얘가 캐치 하면 안된다.
 			logResponse(response);
 
 			response.copyBodyToResponse();
