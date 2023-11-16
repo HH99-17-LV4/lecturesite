@@ -71,4 +71,32 @@ public class LectureService {
                 new IllegalArgumentException("존재하지 않는 강사입니다.")
         );
     }
+
+    public void likeLecture(Long id) {
+        Lecture lecture = findLecture(id);
+        lecture.setLikes(lecture.getLikes() + 1);
+        lectureRepository.save(lecture);
+    }
+    public void unlikeLecture(Long id) {
+        Lecture lecture = findLecture(id);
+        int likes = lecture.getLikes();
+        if (likes > 0) {
+            lecture.setLikes(likes - 1);
+            lectureRepository.save(lecture);
+        }
+    }
+    public boolean toggleLikeLecture(Long id) {
+        Lecture lecture = findLecture(id);
+        int likes = lecture.getLikes();
+        if (likes > 0) {
+            lecture.setLikes(0);
+            // 좋아요를 이미 한 상태에서 다시 누르면 좋아요 취소
+            lectureRepository.save(lecture);
+            return false; // 좋아요 취소
+        } else {
+            lecture.setLikes(1);
+            lectureRepository.save(lecture);
+            return true; // 좋아요
+        }
+    }
 }
