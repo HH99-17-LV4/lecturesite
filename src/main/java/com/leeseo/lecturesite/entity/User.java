@@ -20,31 +20,31 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username; // jwt때문에 email을 username으로
+	@Column(nullable = false, unique = true)
+	private String username; // jwt때문에 email을 username으로
 
-    @Column(nullable = false)
-    private String password;
+	@Column(nullable = false)
+	private String password;
 
-    @Column(nullable = false)
-    private String phoneNumber;
+	@Column(nullable = false)
+	private String phoneNumber;
 
-    @Column(nullable = false)
-    private String address;
+	@Column(nullable = false)
+	private String address;
 
-    @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private UserRoleEnum role;
+	@Column(nullable = false)
+	@Enumerated(value = EnumType.STRING)
+	private UserRoleEnum role;
 
-    public User(SignupRequestDto req) {
-        this.username = req.getUsername();
-        this.password = req.getPassword();
-        this.phoneNumber = req.getPhoneNumber();
-        this.address = req.getAddress();
-        this.role = req.getRole();
-    }
+	public User(SignupRequestDto req) {
+		this.username = req.getUsername();
+		this.password = req.getPassword();
+		this.phoneNumber = req.getPhoneNumber();
+		this.address = req.getAddress();
+		this.role = req.getRole();
+	}
 }
