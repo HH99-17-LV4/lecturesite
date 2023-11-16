@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   config:
     import:
       - application-local.yml
@@ -14,3 +16,4 @@ spring:
         show_sql: 'true'
     hibernate:
       ddl-auto: update
+
