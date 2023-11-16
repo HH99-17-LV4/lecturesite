@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.leeseo.lecturesite.dto.LectureDetailResponseDto;
 import com.leeseo.lecturesite.dto.LectureRequestDto;
 import com.leeseo.lecturesite.dto.LectureResponseDto;
 import com.leeseo.lecturesite.entity.Lecture;
@@ -44,7 +45,7 @@ public class LectureController {
 	}
 
 	@GetMapping("/lectures/{id}")
-	public LectureResponseDto getLectureById(@PathVariable Long id) {
+	public LectureDetailResponseDto getLectureById(@PathVariable Long id) {
 		return lectureService.getLectureById(id);
 	}
 

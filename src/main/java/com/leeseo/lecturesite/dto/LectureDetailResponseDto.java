@@ -1,18 +1,16 @@
 package com.leeseo.lecturesite.dto;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.leeseo.lecturesite.dto.comment.CommentResponseDto;
 import com.leeseo.lecturesite.entity.Lecture;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Data
-public class LectureResponseDto {
+public class LectureDetailResponseDto {
     private String name;
     private Integer price;
     private String category;
@@ -22,7 +20,7 @@ public class LectureResponseDto {
     private Integer likes;
     private List<CommentResponseDto> commentList = new ArrayList<>();
 
-    public LectureResponseDto(Lecture lecture) {
+    public LectureDetailResponseDto(Lecture lecture, List<CommentResponseDto> commentList) {
         this.name = lecture.getName();
         this.price = lecture.getPrice();
         this.category = lecture.getCategory();
@@ -30,5 +28,6 @@ public class LectureResponseDto {
         this.tutorName = lecture.getTutor().getName();
         this.likes = lecture.getLikes().size();
         this.registeredAt = lecture.getRegisteredAt();
+        this.commentList = commentList;
     }
 }

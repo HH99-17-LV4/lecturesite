@@ -8,8 +8,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.leeseo.lecturesite.dto.LectureDetailResponseDto;
 import com.leeseo.lecturesite.dto.LectureRequestDto;
 import com.leeseo.lecturesite.dto.LectureResponseDto;
+import com.leeseo.lecturesite.dto.comment.CommentResponseDto;
 import com.leeseo.lecturesite.entity.Lecture;
 import com.leeseo.lecturesite.entity.Likey;
 import com.leeseo.lecturesite.entity.Tutor;
@@ -18,22 +20,18 @@ import com.leeseo.lecturesite.repository.LectureRepository;
 import com.leeseo.lecturesite.repository.LikeyRepository;
 import com.leeseo.lecturesite.repository.TutorRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j(topic = "LectureService")
 @Service
+@RequiredArgsConstructor
 public class LectureService {
 
 	private final LectureRepository lectureRepository;
 	private final TutorRepository tutorRepository;
 	private final LikeyRepository likeyRepository;
-
-	public LectureService(LectureRepository lectureRepository, TutorRepository tutorRepository,
-		LikeyRepository likeyRepository) {
-		this.lectureRepository = lectureRepository;
-		this.tutorRepository = tutorRepository;
-		this.likeyRepository = likeyRepository;
-	}
+	private final CommentService commentService;
 
 	public String createLecture(LectureRequestDto requestDto) {
 		Tutor tutor = findById(requestDto.getTutorId());
@@ -46,12 +44,14 @@ public class LectureService {
 
 	//Lecture 를 반환하면 순환 참조가 발생합니다.
 	public List<LectureResponseDto> getAllLectures() {
+
 		return lectureRepository.findAll().stream().map(LectureResponseDto::new).collect(Collectors.toList());
 	}
 
-	public LectureResponseDto getLectureById(Long id) {
+	public LectureDetailResponseDto getLectureById(Long id) {
 		Lecture lecture = findLecture(id);
-		return new LectureResponseDto(lecture);
+		List<CommentResponseDto> commentList = commentService.getCommentList(lecture.getId());
+		return new LectureDetailResponseDto(lecture, commentList);
 	}
 
 	private Lecture findLecture(Long id) {

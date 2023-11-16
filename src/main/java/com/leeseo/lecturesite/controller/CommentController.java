@@ -69,7 +69,7 @@ public class CommentController {
 		@AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
 			commentService.createReply(lectureId, commentId, req, userDetails.getUser());
-			return new ResponseEntity<>("대댓글 수정 성공", HttpStatus.OK);
+			return new ResponseEntity<>("대댓글 생성 성공", HttpStatus.OK);
 		} finally {
 
 		}
