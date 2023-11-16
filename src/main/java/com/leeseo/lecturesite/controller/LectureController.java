@@ -39,7 +39,7 @@ public class LectureController {
 	}
 
 	@GetMapping("/lectures")
-	public List<Lecture> getAllLectures() {
+	public List<LectureResponseDto> getAllLectures() {
 		return lectureService.getAllLectures();
 	}
 
