@@ -20,6 +20,10 @@ public class CommentService {
 		Comment comment = new Comment(lectureId, req, user);
 		commentRepository.save(comment);
 	}
+	public void create(Long lectureId, Long commentId, CommentRequestDto req, User user) {
+		Comment comment = new Comment(lectureId, req, user);
+		commentRepository.save(comment);
+	}
 
 	@Transactional
 	public void modify(Long lectureId, Long commentId, CommentRequestDto req, User user) {

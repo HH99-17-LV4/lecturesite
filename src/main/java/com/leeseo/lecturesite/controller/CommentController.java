@@ -15,45 +15,61 @@ import com.leeseo.lecturesite.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
 
-
 @RequiredArgsConstructor
 @RestController
 public class CommentController {
 
 	private final CommentService commentService;
+
 	@PostMapping("/lectures/{lectureId}/comment")
 	public ResponseEntity<String> create(
 		@PathVariable Long lectureId,
 		@RequestBody CommentRequestDto req,
-		@AuthenticationPrincipal UserDetailsImpl userDetails){
-		try{
+		@AuthenticationPrincipal UserDetailsImpl userDetails) {
+		try {
 			commentService.create(lectureId, req, userDetails.getUser());
 			return new ResponseEntity<>("댓글 등록 성공", HttpStatus.OK);
 		} finally {
 
 		}
 	}
+
 	@PostMapping("/lectures/{lectureId}/comment/{commentId}")
 	public ResponseEntity<String> modify(
 		@PathVariable Long lectureId,
 		@PathVariable Long commentId,
 		@RequestBody CommentRequestDto req,
-		@AuthenticationPrincipal UserDetailsImpl userDetails){
-		try{
+		@AuthenticationPrincipal UserDetailsImpl userDetails) {
+		try {
 			commentService.modify(lectureId, commentId, req, userDetails.getUser());
 			return new ResponseEntity<>("댓글 수정 성공", HttpStatus.OK);
 		} finally {
 
 		}
 	}
+
 	@DeleteMapping("/lectures/{lectureId}/comment/{commentId}")
 	public ResponseEntity<String> delete(
 		@PathVariable Long lectureId,
 		@PathVariable Long commentId,
-		@AuthenticationPrincipal UserDetailsImpl userDetails){
-		try{
+		@AuthenticationPrincipal UserDetailsImpl userDetails) {
+		try {
 			commentService.delete(lectureId, commentId, userDetails.getUser());
 			return new ResponseEntity<>("댓글 삭제 성공", HttpStatus.OK);
+		} finally {
+
+		}
+	}
+
+	@PostMapping("/lectures/{lectureId}/comment/{commentId}/comment")
+	public ResponseEntity<String> createReply(
+		@PathVariable Long lectureId,
+		@PathVariable Long commentId,
+		@RequestBody CommentRequestDto req,
+		@AuthenticationPrincipal UserDetailsImpl userDetails) {
+		try {
+			commentService.create(lectureId, commentId, req, userDetails.getUser());
+			return new ResponseEntity<>("대댓글 수정 성공", HttpStatus.OK);
 		} finally {
 
 		}
