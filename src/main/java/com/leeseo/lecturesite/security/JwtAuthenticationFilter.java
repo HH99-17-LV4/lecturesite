@@ -10,17 +10,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leeseo.lecturesite.entity.UserRoleEnum;
 import com.leeseo.lecturesite.jwt.JwtUtil;
-import com.leeseo.lecturesite.user.LoginRequestDto;
+import com.leeseo.lecturesite.dto.user.LoginRequestDto;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j(topic = "로그인 및 JWT 생성")
+@Slf4j(topic = "JwtAuthenticationFilter")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final JwtUtil jwtUtil;
-
     public JwtAuthenticationFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
         setFilterProcessesUrl("/api/user/login");
@@ -30,12 +29,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
+            log.info("requestDto : " + requestDto);
 
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
                             requestDto.getUsername(),
                             requestDto.getPassword(),
-                            null
+                        null
                     )
             );
         } catch (IOException e) {
@@ -50,6 +50,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
 
         String token = jwtUtil.createToken(username, role);
+        log.info("token : " + token);
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
     }
 
