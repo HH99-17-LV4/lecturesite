@@ -1,4 +1,4 @@
-package com.leeseo.lecturesite.user;
+package com.leeseo.lecturesite.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;
