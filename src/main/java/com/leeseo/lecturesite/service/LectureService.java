@@ -71,7 +71,17 @@ public class LectureService {
 		} else {
 			sort = sort.descending();
 		}
-		List<Lecture> lectures = lectureRepository.findByCategory(category, sort);
+		List<Lecture> lectures;
+		if ("price".equalsIgnoreCase(sortBy)) {
+			//가격으로 정렬하는 경우
+			lectures = lectureRepository.findByCategoryOrderByPrice(category, sort);
+		} else if ("registeredAt".equalsIgnoreCase(sortBy)) {
+			// 등록일로 정렬하는 경우
+			lectures = lectureRepository.findByCategoryOrderByRegisteredAt(category, sort);
+		} else {
+			// 강의명으로 기본 정렬
+			lectures = lectureRepository.findByCategory(category, sort);
+		}
 		return lectures.stream().map(LectureResponseDto::new).collect(Collectors.toList());
 	}
 
