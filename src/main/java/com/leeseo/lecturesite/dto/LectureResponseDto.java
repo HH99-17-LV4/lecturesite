@@ -14,14 +14,12 @@ public class LectureResponseDto {
     private String comment;
     private Tutor tutor;
     private LocalDateTime registeredAt;
-    private int likes;
 
     public LectureResponseDto(Lecture lecture) {
         this.name = lecture.getName();
         this.price = lecture.getPrice();
         this.category = lecture.getCategory();
         this.comment = lecture.getComment();
-        this.likes = lecture.getLikes();
         this.registeredAt = lecture.getRegisteredAt();
     }
 }
