@@ -1,5 +1,7 @@
 package com.leeseo.lecturesite.entity;
 
+import com.leeseo.lecturesite.dto.user.SignupRequestDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,22 +25,26 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String username; // jwt때문에 email을 username으로
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(nullable = false)
+    private String phoneNumber;
+
+    @Column(nullable = false)
+    private String address;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
 
-    public User(String username, String password, String email, UserRoleEnum role) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
+    public User(SignupRequestDto req) {
+        this.username = req.getUsername();
+        this.password = req.getPassword();
+        this.phoneNumber = req.getPhoneNumber();
+        this.address = req.getAddress();
+        this.role = req.getRole();
     }
 }
