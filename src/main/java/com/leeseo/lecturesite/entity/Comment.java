@@ -38,7 +38,7 @@ public class Comment {
 	@JoinColumn(name = "parent_id") // 연관관계의 주인, Child
 	private Comment parent;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent_id", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent", orphanRemoval = true)
 	private List<Comment> children = new ArrayList<>();
 
 
