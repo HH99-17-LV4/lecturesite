@@ -24,12 +24,14 @@ public class Lecture extends TimeStamped {
     private String category;
     @ManyToOne
     private Tutor tutor;
+    private int likes;
 
     public Lecture(LectureRequestDto requestDto) {
         this.name = requestDto.getName();
         this.price = requestDto.getPrice();
         this.comment = requestDto.getComment();
         this.category = requestDto.getCategory();
+
     }
 
 }

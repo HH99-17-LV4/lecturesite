@@ -13,18 +13,15 @@ public class TutorService {
     public TutorService(TutorRepository tutorRepository) {
         this.tutorRepository = tutorRepository;
     }
-    public void createTutors(TutorRequestDto requestDto) {
-        Tutor tutor = new Tutor(requestDto);
-        tutorRepository.save(tutor);
+    public TutorResponseDto createTutors(TutorRequestDto registTutorRequestDto) {
+        Tutor tutor = new Tutor(registTutorRequestDto);
+        return new TutorResponseDto(tutorRepository.save(tutor));
     }
 
-    public TutorResponseDto getTutorById(Long id) {
-        Tutor tutor = findTutor(id);
-        return new TutorResponseDto(tutor);
-    }
-    private Tutor findTutor(Long id) {
-        return tutorRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("선택한 강의는 없습니다")
+    public TutorResponseDto getTutors(Long id) {
+        Tutor tutor = tutorRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("등록되지 않은 사용자입니다.")
         );
+        return new TutorResponseDto(tutor);
     }
 }

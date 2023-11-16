@@ -4,25 +4,25 @@ import com.leeseo.lecturesite.dto.TutorRequestDto;
 import com.leeseo.lecturesite.dto.TutorResponseDto;
 import com.leeseo.lecturesite.repository.TutorRepository;
 import com.leeseo.lecturesite.service.TutorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TutorController {
     private final TutorService tutorService;
-    private final TutorRepository tutorRepository;
 
 
     public TutorController(TutorService tutorService, TutorRepository tutorRepository) {
         this.tutorService = tutorService;
-        this.tutorRepository = tutorRepository;
-
     }
     @PostMapping("/tutors")
-    public void createTutor(@RequestBody TutorRequestDto requestDto) {
-        tutorService.createTutors(requestDto);
+    public ResponseEntity<TutorResponseDto> createTutors(@RequestBody TutorRequestDto RequestDto) {
+        return new ResponseEntity<>(tutorService.createTutors(RequestDto), HttpStatus.OK);
     }
     @GetMapping("/tutors/{id}")
-    public TutorResponseDto getTutorById(@PathVariable Long id) {
-        return tutorService.getTutorById(id);
+    public ResponseEntity<TutorResponseDto> getTutors(@PathVariable Long id) {
+        return new ResponseEntity<>(tutorService.getTutors(id), HttpStatus.OK);
     }
+
 }
