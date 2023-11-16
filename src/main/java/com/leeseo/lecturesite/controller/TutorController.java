@@ -1,5 +1,6 @@
 package com.leeseo.lecturesite.controller;
 
+import com.leeseo.lecturesite.dto.TutorAdminResponseDto;
 import com.leeseo.lecturesite.dto.TutorRequestDto;
 import com.leeseo.lecturesite.dto.TutorResponseDto;
 import com.leeseo.lecturesite.repository.TutorRepository;
@@ -16,8 +17,8 @@ public class TutorController {
     public TutorController(TutorService tutorService, TutorRepository tutorRepository) {
         this.tutorService = tutorService;
     }
-    @PostMapping("/tutors")
-    public ResponseEntity<TutorResponseDto> createTutors(@RequestBody TutorRequestDto RequestDto) {
+    @PostMapping("/admin/tutors")
+    public ResponseEntity<TutorAdminResponseDto> createTutors(@RequestBody TutorRequestDto RequestDto) {
         return new ResponseEntity<>(tutorService.createTutors(RequestDto), HttpStatus.OK);
     }
     @GetMapping("/tutors/{id}")
