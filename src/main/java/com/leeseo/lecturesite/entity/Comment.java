@@ -1,7 +1,10 @@
 package com.leeseo.lecturesite.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.data.annotation.LastModifiedDate;
 
 import com.leeseo.lecturesite.dto.comment.CommentRequestDto;
 
@@ -13,6 +16,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +30,10 @@ public class Comment {
 	private Long id;
 	private String content;
 
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime modifiedAt;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lecture_id")
 	private Lecture lecture;
@@ -35,11 +44,12 @@ public class Comment {
 
 	//셀프 참조
 	@ManyToOne
-	@JoinColumn(name = "parent_id") // 연관관계의 주인, Child
+	@JoinColumn(name = "parent") // 연관관계의 주인, Child
 	private Comment parent;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent_id", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent", orphanRemoval = true)
 	private List<Comment> children = new ArrayList<>();
+
 
 
 	public Comment(Long lectureId, CommentRequestDto req, User user) {
