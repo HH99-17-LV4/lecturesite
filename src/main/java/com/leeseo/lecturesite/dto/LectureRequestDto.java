@@ -10,5 +10,4 @@ public class LectureRequestDto {
     private String comment;
     private String category;
     private Long tutorId;
-    private LocalDateTime registeredAt;
 }
