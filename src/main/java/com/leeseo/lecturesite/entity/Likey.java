@@ -21,5 +21,12 @@ public class Likey {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	// TODO: 2023-11-16 lecture와 연관관계 설정
+	@ManyToOne
+	@JoinColumn(name = "lecture_id")
+	private Lecture lecture;
+
+	public Likey(Lecture foundLecture, User user) {
+		this.lecture = foundLecture;
+		this.user = user;
+	}
 }
