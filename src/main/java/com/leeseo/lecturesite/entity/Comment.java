@@ -24,7 +24,10 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String content;
-	// TODO: 2023-11-16 lectrue와 관계 맺기
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lecture_id")
+	private Lecture lecture;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
