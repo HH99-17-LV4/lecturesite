@@ -1,5 +1,6 @@
 package com.leeseo.lecturesite.service;
 
+import com.leeseo.lecturesite.dto.TutorAdminResponseDto;
 import com.leeseo.lecturesite.dto.TutorRequestDto;
 import com.leeseo.lecturesite.dto.TutorResponseDto;
 import com.leeseo.lecturesite.entity.Tutor;
@@ -13,9 +14,9 @@ public class TutorService {
     public TutorService(TutorRepository tutorRepository) {
         this.tutorRepository = tutorRepository;
     }
-    public TutorResponseDto createTutors(TutorRequestDto registTutorRequestDto) {
+    public TutorAdminResponseDto createTutors(TutorRequestDto registTutorRequestDto) {
         Tutor tutor = new Tutor(registTutorRequestDto);
-        return new TutorResponseDto(tutorRepository.save(tutor));
+        return new TutorAdminResponseDto(tutorRepository.save(tutor));
     }
 
     public TutorResponseDto getTutors(Long id) {
