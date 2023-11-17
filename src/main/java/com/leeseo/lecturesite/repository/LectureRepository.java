@@ -11,5 +11,8 @@ import com.leeseo.lecturesite.entity.Lecture;
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
 	List<Lecture> findByCategory(String category, Sort sort);
 
-	Optional<Lecture> findByIdAndTutor_Id(Long lectureId, Long tutorId);
+  List<Lecture> findByCategoryOrderByPrice(String category, Sort sort);
+
+  List<Lecture> findByCategoryOrderByRegisteredAt(String category, Sort sort);
+
 }

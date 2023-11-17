@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j(topic = "JwtUtil")
 @Component
 public class JwtUtil {
+
 	// Header KEY 값
 	public static final String AUTHORIZATION_HEADER = "Authorization";
 	// 사용자 권한 값의 KEY
