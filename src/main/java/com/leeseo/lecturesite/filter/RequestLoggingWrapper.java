@@ -26,6 +26,8 @@ public class RequestLoggingWrapper extends HttpServletRequestWrapper {
 	public RequestLoggingWrapper(HttpServletRequest request) throws IOException {
 		super(request);
 		InputStream requestInputStream = request.getInputStream();
+		// 캐시된 inputstream으로 read 해야 다음 filter에서도 읽을 수 있음,
+		// request 안에 있는 inputstream 객체로 읽으면 안된다.
 		this.cachedInputStream = StreamUtils.copyToByteArray(requestInputStream);
 	}
 

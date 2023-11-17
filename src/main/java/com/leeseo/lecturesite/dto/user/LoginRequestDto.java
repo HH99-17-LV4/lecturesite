@@ -1,7 +1,5 @@
 package com.leeseo.lecturesite.dto.user;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginRequestDto {
-    private String username;
-    private String password;
+	private String username;
+	private String password;
 }

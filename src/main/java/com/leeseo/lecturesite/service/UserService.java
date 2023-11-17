@@ -5,11 +5,9 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.leeseo.lecturesite.dto.user.LoginRequestDto;
-import com.leeseo.lecturesite.entity.UserRoleEnum;
-import com.leeseo.lecturesite.repository.UserRepository;
 import com.leeseo.lecturesite.dto.user.SignupRequestDto;
 import com.leeseo.lecturesite.entity.User;
+import com.leeseo.lecturesite.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
