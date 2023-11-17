@@ -62,15 +62,12 @@ public class LectureService {
 		Sort.Direction direction = "asc".equalsIgnoreCase(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC;
 		Sort sort = Sort.by(direction, sortBy);
 		List<Lecture> lectures = lectureRepository.findByCategory(category, sort);
+
 		return lectures.stream().map(LectureResponseDto::new).collect(Collectors.toList());
+
 	}
-//	if ("price".equalsIgnoreCase(sortBy)) {
-//		lectures = lectureRepository.findByCategoryOrderByPrice(category, sort);
-//	} else if ("registeredAt".equalsIgnoreCase(sortBy)) {
-//		lectures = lectureRepository.findByCategoryOrderByRegisteredAt(category, sort);
-//	} else {
-//		lectures = lectureRepository.findByCategory(category, sort);
-//	}
+
+
 
 	private Tutor findById(Long tutorId) {
 		return tutorRepository.findByid(tutorId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 강사입니다."));
